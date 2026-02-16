@@ -1,45 +1,52 @@
 """
-User enters the triangle sides and gets its surface and perimeter.
+User enters the Rectangle sides and gets its surface and perimeter.
 There are accessed float and int values at the user input 
 """
-
-class Triangle:
+class NotValidRectangle(Exception):
     """
-    Docstring for Triangle
+    Exception for the case user inputs not two values
+    """
+    def __str__(self):
+        return "Please, enter two positive real values for (a, b) sides of the rectangle."
+
+class Rectangle:
+    """
+    Docstring for Rectangle
     """
     def __init__(self, sides:list[float]):
-        self.sides:list[float] = sides
+        if len(sides) != 2 or sides[0] < 0 or sides[1] < 0:
+           raise NotValidRectangle
+        else:
+            self.sides:list[float] = sides
 
     def get_perimeter(self):
         """
         Docstring for get_perimeter
         
-        :param self: return the perimeter of the triangle
+        :param self: return the perimeter of the rectangle
         """
-        return sum(self.sides)
+        
+        return sum(self.sides) * 2
 
     def get_surface(self):
         """
         Docstring for get_surface
         
-        :param self: return the surface of the triangle
+        :param self: return the surface of the rectangle
         """
-        half_perimeter = self.get_perimeter() / 2
-        return (half_perimeter *
-                               (half_perimeter - self.sides[0]) *
-                               (half_perimeter - self.sides[1]) *
-                               (half_perimeter - self.sides[2])) ** (1/2)
+        return self.sides[0] * self.sides[1]
+    
     def __str__(self):
-        trianle_perimeter = self.get_perimeter()
-        triangle_surface = self.get_surface()
-        return str({"triangle_sides":self.sides,
-                "triangle_perimeter": trianle_perimeter,
-                "triangle_surface": triangle_surface})
+        rectangle_perimeter = self.get_perimeter()
+        rectangle_surface = self.get_surface()
+        return str({"rectangle":self.sides,
+                "rectangle_perimeter": rectangle_perimeter,
+                "rectangle_surface": rectangle_surface})
 
-user_triangle:list[float] = list(
+user_rectangle:list[float] = list(
     map(
-    float, input("Enter three sides of the triangle with whitespaces\n").split()
+    float, input("Enter two sides of the rectangle with whitespaces\n").split()
     )
     )
 
-print(Triangle(user_triangle))
+print(Rectangle(user_rectangle))
