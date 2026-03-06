@@ -15,18 +15,21 @@ class NotNaturalNumber(Exception):
 
 class OutOfRange(Exception):
     "Exception for the case number is greater then MAX_VALUE"
-    def __init__(self, inputed, max_value):
+    def __init__(self, inputed):
         self.inputed = inputed
-        self.max_value = max_value
 
     def __str__(self):
-        return f"{self.inputed} greater then {self.max_value}. Enter the value lesser or equal {self.max_value}"
+        return f"{self.inputed} greater than {MAX_VALUE}. Enter the value lesser or equal {MAX_VALUE}"
 
 class Number:
     """
     Class for integer number
     """
     def __init__(self, number: int):
+        if number < 0:
+            raise NotNaturalNumber(number)
+        elif number > MAX_VALUE:
+            raise OutOfRange(number)
         self.number: int = number
 
     def get_dividers(self):
@@ -37,19 +40,6 @@ class Number:
                 dividers_list.append(i+1)
         return dividers_list
 
-try:
-    user_value: int = int(input("Enter the integer value: \n"))
-    if user_value < 0: 
-        raise NotNaturalNumber(user_value)
-    elif user_value > MAX_VALUE:
-        raise OutOfRange(user_value, MAX_VALUE)
-    else:
-        user_number = Number(user_value)
-        print(user_number.get_dividers())
-
-except ValueError as e:
-    print(e)
-except NotNaturalNumber as e:
-    print(e)
-except OutOfRange as  e:
-    print(e)
+user_value: int = int(input("Enter the integer value: \n"))
+user_number = Number(user_value)
+print(user_number.get_dividers())

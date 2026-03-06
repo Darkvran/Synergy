@@ -18,28 +18,20 @@ class  NumberList:
     """
     Class for number list with defined len
     """
-    def __init__(self, numbers, finding_symbol=0):
+    def __init__(self, numbers, expected_len, finding_symbol=0):
         """
         When user enters string or list len is not equal N, then raising exceptions
         """
-        self.finding_symbol: str = finding_symbol
+        if len(numbers) != expected_len:
+            raise WrongListLen(len(numbers), expected_len)
         self.number_list: list[int] = numbers
-
+        self.finding_symbol: str = finding_symbol
     def get_symb_num(self):
         "Returns the self.finding_symbol num in the self.number_list"
         return self.number_list.count(self.finding_symbol)
 
-try:
-    expected_len: int = int(input("Enter the len of number list:\n"))
-    raw_numbers: list[int] = list(map(int, input("Enter the numbers separated  with whitespace:\n").split()))
 
-    if len(raw_numbers) != expected_len:
-        raise WrongListLen(len(raw_numbers), expected_len)
-
-    my_numbers: NumberList =  NumberList(raw_numbers)
-    print(f"Result:{my_numbers.get_symb_num()}")
-
-except ValueError:
-    print("Please, enter only integers")
-except WrongListLen as e:
-    print(e)
+expected_len: int = int(input("Enter the len of number list:\n"))
+raw_numbers: list[int] = list(map(int, input("Enter the numbers separated  with whitespace:\n").split()))
+my_numbers: NumberList =  NumberList(raw_numbers, expected_len)
+print(f"Result:{my_numbers.get_symb_num()}")
