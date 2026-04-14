@@ -34,4 +34,4 @@ class  NumberList:
 expected_len: int = int(input("Enter the len of number list:\n"))
 raw_numbers: list[int] = list(map(int, input("Enter the numbers separated  with whitespace:\n").split()))
 my_numbers: NumberList =  NumberList(raw_numbers, expected_len)
-print(f"Result:{my_numbers.get_symb_num()}")
+print(f"Result: {my_numbers.get_symb_num()}")
